@@ -5,7 +5,7 @@ self.addEventListener('install', (event) => {
         '/',
         '/index.html',
         '/contacto.html',
-        '/cc/styles.css',
+        '/css/styles.css',
         '/script.js',
         '/splash.js',
         '/service-worker.js',
