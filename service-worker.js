@@ -3,6 +3,7 @@ self.addEventListener('install', (event) => {
     caches.open('my-cache').then((cache) => {
       return cache.addAll([
         '/',
+        '/principal.html',
         '/index.html',
         '/contacto.html',
         '/css/styles.css',
