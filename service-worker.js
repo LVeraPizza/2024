@@ -3,14 +3,14 @@ self.addEventListener('install', (event) => {
     caches.open('my-cache').then((cache) => {
       return cache.addAll([
         '/',
-        'https://lverapizza.github.io/2024/principal.html',
-        'https://lverapizza.github.io/2024/index.html',
-        'https://lverapizza.github.io/2024/contacto.html',
-        'https://lverapizza.github.io/2024/css/styles.css',
-        'https://lverapizza.github.io/2024/script.js',
-        'https://lverapizza.github.io/2024/splash.js',
-        'https://lverapizza.github.io/2024/service-worker.js',
-        'https://lverapizza.github.io/2024/logo_vp.png',
+        'https://lverapizza.github.io/App/principal.html',
+        'https://lverapizza.github.io/App/index.html',
+        'https://lverapizza.github.io/App/contacto.html',
+        'https://lverapizza.github.io/App/css/styles.css',
+        'https://lverapizza.github.io/App/script.js',
+        'https://lverapizza.github.io/App/splash.js',
+        'https://lverapizza.github.io/App/service-worker.js',
+        'https://lverapizza.github.io/App/logo_vp.png',
 
         // Agrega otros archivos que necesites en el caché
       ]);
