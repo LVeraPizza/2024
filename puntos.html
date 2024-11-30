@@ -148,7 +148,7 @@
 
             if (telefono) {
                 telefonoActual = telefono;
-                const userRef = ref(database, 'usuarios/' + telefono);
+                const userRef = ref(database, 'clientes/' + telefono);
                 get(userRef).then((snapshot) => {
                     const puntos = snapshot.val() ? snapshot.val().puntos : 0;
                     puntosDisponibles = puntos;
@@ -174,7 +174,7 @@
 
         // Escuchar los cambios en tiempo real en los puntos del usuario
         function listenToPuntos(telefono) {
-            const userRef = ref(database, 'usuarios/' + telefono);
+            const userRef = ref(database, 'clientes/' + telefono);
             onValue(userRef, (snapshot) => {
                 const puntos = snapshot.val() ? snapshot.val().puntos : 0;
                 puntosDisponibles = puntos;
