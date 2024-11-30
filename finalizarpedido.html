@@ -339,7 +339,7 @@
 
     </div>
 
-     <script type="module">
+        <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js";
         import { getDatabase, ref, get, set, update } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-database.js";
     
@@ -372,20 +372,17 @@
                 document.getElementById('loading').style.display = 'flex'; // Usamos 'flex' para que el spinner se centre
                 document.body.classList.add('loading-active'); // Activar el fondo oscuro
     
-                // Obtener los valores de los campos
+                // Obtener los valores del formulario
                 const name = document.getElementById('name').value;
                 const address = document.getElementById('address').value;
                 const phone = document.getElementById('phone').value.trim(); // Número de teléfono
                 const Observaciones = document.getElementById('Observaciones').value;
                 const deliveryOption = document.querySelector('select[name="delivery"]').value;
     
-                // Calcular el costo total
-                let deliveryCost = 0;
-                if (deliveryOption === "envio") {
-                    deliveryCost = 1000; // Agregar costo de envío
-                }
+                // Calcular el costo de envío
+                const deliveryCost = deliveryOption === "envio" ? 1000 : 0;
     
-                // Obtener los productos del carrito (esto es un ejemplo)
+                // Obtener los productos del carrito
                 const cart = loadCart();
                 const cartItems = Object.entries(cart).map(([productName, { price, quantity }]) => {
                     return `${productName}: ${quantity} x $${price} = $${price * quantity}`;
@@ -398,12 +395,21 @@
                 const puntosRef = ref(database, `clientes/${phone}`);
                 get(puntosRef)
                     .then((snapshot) => {
+                        let puntosActuales = 0;
                         if (snapshot.exists()) {
-                            const puntosActuales = snapshot.val().puntos || 0;
-                            update(puntosRef, { puntos: puntosActuales + 1 });
-                        } else {
-                            set(puntosRef, { puntos: 1 });
+                            puntosActuales = snapshot.val().puntos || 0;
                         }
+    
+                        // Determinar si el carrito incluye "2 Pizzas Margheritas"
+                        let puntosGanados = 0;
+                        if (cart["2 Pizzas Margheritas"]) {
+                            puntosGanados = 3; // 3 puntos si hay "2 Pizzas Margheritas" en el carrito
+                        } else {
+                            puntosGanados = 1; // 1 punto por cada pedido
+                        }
+    
+                        // Actualizar puntos en Firebase
+                        update(puntosRef, { puntos: puntosActuales + puntosGanados });
                         console.log('Puntos actualizados correctamente.');
                     })
                     .catch((error) => {
@@ -431,7 +437,6 @@
                         window.location.href = 'gracias.html';
                     }, function (error) {
                         console.log('Error al enviar el correo:', error);
-                        // Ocultar el spinner y restaurar el fondo del body en caso de error
                         document.getElementById('loading').style.display = 'none';
                         document.body.classList.remove('loading-active'); // Restaurar fondo normal
                         alert("Error al enviar el formulario, por favor intenta nuevamente.");
