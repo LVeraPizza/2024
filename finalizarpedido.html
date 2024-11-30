@@ -339,43 +339,77 @@
 
     </div>
 
-    <script>
+     <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js";
+        import { getDatabase, ref, get, set, update } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-database.js";
+    
+        const firebaseConfig = {
+            apiKey: "AIzaSyCzMNKimcw1kaaJlMdTKj7RAdlsHyaImBk",
+            authDomain: "vera-pizza-app.firebaseapp.com",
+            databaseURL: "https://vera-pizza-app-default-rtdb.firebaseio.com/",
+            projectId: "vera-pizza-app",
+            storageBucket: "vera-pizza-app.appspot.com",
+            messagingSenderId: "783988757356",
+            appId: "1:783988757356:web:c66d3f2571aff0f125d949",
+            measurementId: "G-FNLSPHKXFW"
+        };
+    
+        // Inicializar Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+    
         document.addEventListener("DOMContentLoaded", function () {
             // Inicializar EmailJS
             (function () {
                 emailjs.init("wGGXbjw0SnUFnyV2T"); // Reemplaza con tu User ID de EmailJS
             })();
-
+    
             // Función para manejar el envío del formulario
             document.getElementById('submit-button').addEventListener('click', function (event) {
                 event.preventDefault(); // Evita que el formulario se envíe de manera predeterminada
-
+    
                 // Mostrar el spinner y cambiar el fondo del body
                 document.getElementById('loading').style.display = 'flex'; // Usamos 'flex' para que el spinner se centre
                 document.body.classList.add('loading-active'); // Activar el fondo oscuro
+    
                 // Obtener los valores de los campos
                 const name = document.getElementById('name').value;
                 const address = document.getElementById('address').value;
-                const phone = document.getElementById('phone').value;
+                const phone = document.getElementById('phone').value.trim(); // Número de teléfono
                 const Observaciones = document.getElementById('Observaciones').value;
                 const deliveryOption = document.querySelector('select[name="delivery"]').value;
-
-
+    
                 // Calcular el costo total
                 let deliveryCost = 0;
                 if (deliveryOption === "envio") {
                     deliveryCost = 1000; // Agregar costo de envío
                 }
-
+    
                 // Obtener los productos del carrito (esto es un ejemplo)
                 const cart = loadCart();
                 const cartItems = Object.entries(cart).map(([productName, { price, quantity }]) => {
                     return `${productName}: ${quantity} x $${price} = $${price * quantity}`;
                 }).join('\n');
-
+    
                 // Calcular el total
                 const totalAmount = Object.values(cart).reduce((sum, product) => sum + (product.price * product.quantity), 0) + deliveryCost;
-
+    
+                // Guardar el teléfono en Firebase y actualizar puntos
+                const puntosRef = ref(database, `clientes/${phone}`);
+                get(puntosRef)
+                    .then((snapshot) => {
+                        if (snapshot.exists()) {
+                            const puntosActuales = snapshot.val().puntos || 0;
+                            update(puntosRef, { puntos: puntosActuales + 1 });
+                        } else {
+                            set(puntosRef, { puntos: 1 });
+                        }
+                        console.log('Puntos actualizados correctamente.');
+                    })
+                    .catch((error) => {
+                        console.error('Error al actualizar puntos:', error);
+                    });
+    
                 // Enviar el correo
                 emailjs.send("service_6kjxjnj", "template_o8vfdnl", {
                     from_name: name,
@@ -390,10 +424,9 @@
                 })
                     .then(function (response) {
                         console.log('Éxito!', response.status, response.text);
-                        document.getElementById('loading').style.display = 'none'; // Ocultar el loading en caso de error
+                        document.getElementById('loading').style.display = 'none'; // Ocultar el loading
                         document.body.classList.remove('loading-active'); // Restaurar fondo normal
-
-
+    
                         // Redirigir a gracias.html
                         window.location.href = 'gracias.html';
                     }, function (error) {
@@ -403,9 +436,8 @@
                         document.body.classList.remove('loading-active'); // Restaurar fondo normal
                         alert("Error al enviar el formulario, por favor intenta nuevamente.");
                     });
-
             });
-
+    
             // Función para cargar el carrito desde localStorage
             function loadCart() {
                 const storedCart = localStorage.getItem('cart');
@@ -415,12 +447,11 @@
                 return {};
             }
         });
-
-
+    
         // Verifica el estado desde Local Storage
         const submitButton = document.getElementById("submit-button");
         const estadoPedido = localStorage.getItem("estadoPedido");
-
+    
         if (estadoPedido === "abierto") {
             submitButton.disabled = false;
             submitButton.style.opacity = "1";
@@ -430,7 +461,6 @@
             submitButton.style.opacity = "0.5";
             submitButton.style.cursor = "not-allowed";
         }
-
     </script>
 </body>
 
