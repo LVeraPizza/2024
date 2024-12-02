@@ -84,7 +84,7 @@ function getProductPrice(productName) {
         "Pizza Romana 4Formaggi": 10000,
         "Pizza Romana Rúcula y Jamón Crudo": 10000,
         "Pizza Romana Pepperoni": 10000,
-        "Pizza Romana Margherita": 90000,
+        "Pizza Romana Margherita": 9000,
     };
     return prices[productName] || 0; // Retorna 0 si el producto no está definido
 }
