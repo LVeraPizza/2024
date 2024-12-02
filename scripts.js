@@ -82,6 +82,9 @@ function getProductPrice(productName) {
         "2 Pizzas Margheritas": 14000, // promocion puntos
         "Pizza Romana Caprese": 10000,
         "Pizza Romana 4Formaggi": 10000,
+        "Pizza Romana Rúcula y Jamón Crudo": 10000,
+        "Pizza Romana Pepperoni": 10000,
+        "Pizza Romana Margherita": 90000,
     };
     return prices[productName] || 0; // Retorna 0 si el producto no está definido
 }
