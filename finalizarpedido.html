@@ -391,6 +391,9 @@
                 // Calcular el total
                 const totalAmount = Object.values(cart).reduce((sum, product) => sum + (product.price * product.quantity), 0) + deliveryCost;
     
+                // Guardar el total (incluyendo envío) en localStorage
+                localStorage.setItem('totalAmount', totalAmount);
+
                 // Guardar el teléfono en Firebase y actualizar puntos
                 const puntosRef = ref(database, `clientes/${phone}`);
                 get(puntosRef)
