@@ -138,6 +138,12 @@
             margin-bottom: 40px;
         }
 
+        h4{
+            color: white;
+            margin-top: 0;
+            margin-bottom: 40px;
+            font-size: 26px;
+        }
     </style>
 </head>
 
@@ -150,6 +156,8 @@
         <h2>Has Sumado Puntos</h2>
         <h3>(Verificalo en la sección premios)</h3>
 
+        <!-- Mostrar el total -->
+        <h4 id="total-message"></h4>
         <!-- Botón para volver a la página de inicio -->
         <a href="index.html" class="back-button">Volver al Inicio</a>
     </div>
@@ -162,8 +170,20 @@
     <div class="confetti" style="left: 90%; animation-delay: 0.9s;"></div>
 
     <script>
+        // Recuperar el total del pedido desde localStorage
+        const totalAmount = localStorage.getItem('totalAmount');
+
+        // Mostrar el total en el mensaje
+        const totalMessageElement = document.getElementById('total-message');
+        if (totalAmount) {
+            totalMessageElement.textContent = `El total de tu pedido (incluyendo envío) es: $${totalAmount}`;
+        } else {
+            totalMessageElement.textContent = 'No se pudo calcular el total del pedido.';
+        }
+
         // Vaciar el carrito en localStorage
         localStorage.removeItem('cart');
+        localStorage.removeItem('totalAmount');
     </script>
 </body>
 
