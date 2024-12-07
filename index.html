@@ -178,6 +178,42 @@
     <!-- Barra de estado -->
     <div id="status-bar"></div>
 
+   <!-- ESTO ES PARA EL DIA QUE EL LOCAL ESTE CERRADO
+        SINO DEBE MANTENERSE COMENTADO -->
+    <div class="aviso-importante">
+        <h2>¡AVISO IMPORTANTE!</h2>
+        <p>Hoy cerrado, ¡Nos vemos mañana!</p>
+    </div>
+    <style>
+        .aviso-importante {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 0, 0, 0.9);
+            color: white;
+            padding: 40px 60px;
+            border-radius: 10px;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            font-size: 2rem;
+            font-weight: bold;
+            z-index: 1000; /* Asegura que esté encima de todos los elementos */
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .aviso-importante h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        .aviso-importante p {
+            margin-top: 10px;
+            font-size: 1.5rem;
+        }
+    </style>
+
+
     <div class="carrusel">
         <div class="imagenes">
             <img src="img/2.jpg" alt="Imagen 1">
