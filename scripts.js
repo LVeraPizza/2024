@@ -78,7 +78,7 @@ function getProductPrice(productName) {
         "Calzone Clasico": 5000,
         "1 Pizza Margherita + 1 Pizza Romana Rúcula y JC": 15000,
         "1 Rucula y jC + 1 Pepperoni": 14000, //promocion 1
-        "1 Margherita + 1 4 Formaggi": 13000, // promocion 2
+        "1 Margherita + 1 4 Formaggi": 14000, // promocion 2
         "2 Pizzas Margheritas": 12000, // promocion puntos
         "Pizza Romana Caprese": 9000,
         "Pizza Romana 4Formaggi": 10000,
