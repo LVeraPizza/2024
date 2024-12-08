@@ -68,7 +68,7 @@ function getProductPrice(productName) {
     const prices = {
         "Pizza Margherita": 7000,
         "Pizza Pepperoni": 8000,
-        "Pizza 4Formaggi": 8000,
+        "Pizza 4Formaggi": 9000,
         "Pizza Rúcula y Jamon Crudo": 8000,
         "Pizza Caprese": 8000,
         "Pizza Mortadela con pistacho": 8000,
