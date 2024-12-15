@@ -4,6 +4,7 @@ self.addEventListener('install', (event) => {
       return cache.addAll([
         '/',
         'https://lverapizza.github.io/App/principal.html',
+        'https://lverapizza.github.io/App/manifest.json',
         'https://lverapizza.github.io/App/index.html',
         'https://lverapizza.github.io/App/contacto.html',
         'https://lverapizza.github.io/App/css/styles.css',
