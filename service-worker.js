@@ -12,7 +12,6 @@ self.addEventListener('install', (event) => {
         'https://lverapizza.github.io/App/service-worker.js',
         'https://lverapizza.github.io/App/logo_vp.png',
         'https://lverapizza.github.io/App/logo_navidad.png',
-        'https://lverapizza.github.io/App/logo_navidad_2.png',
 
         // Agrega otros archivos que necesites en el caché
       ]);
